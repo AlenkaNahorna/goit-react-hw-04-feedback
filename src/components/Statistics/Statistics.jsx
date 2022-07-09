@@ -1,13 +1,8 @@
+import PropTypes from 'prop-types';
 import { Box } from 'styles/Box';
-import {
-  StatisticsList,
-  StatisticsListItem,
-  StatisticsTitle,
-  StatisticsListLabel,
-  StatisticsListValue,
-} from './Statistics.styled';
+import { StatisticsList, StatisticsListItem } from './Statistics.styled';
 
-export const Statistics = ({ good, neutral, bad }) => {
+export const Statistics = ({ options, values, total, positivePercentage }) => {
   return (
     <Box
       display="flex"
@@ -16,21 +11,24 @@ export const Statistics = ({ good, neutral, bad }) => {
       mb="ml"
       as="section"
     >
-      <StatisticsTitle>Statistics</StatisticsTitle>
       <StatisticsList>
+        {options.map(option => (
+          <StatisticsListItem key={option}>
+            {option}: {values[option]}
+          </StatisticsListItem>
+        ))}
+        <StatisticsListItem>Total: {total}</StatisticsListItem>
         <StatisticsListItem>
-          <StatisticsListLabel>Good:</StatisticsListLabel>
-          <StatisticsListValue>{good}</StatisticsListValue>
-        </StatisticsListItem>
-        <StatisticsListItem>
-          <StatisticsListLabel>Neutral:</StatisticsListLabel>
-          <StatisticsListValue>{neutral}</StatisticsListValue>
-        </StatisticsListItem>
-        <StatisticsListItem>
-          <StatisticsListLabel>Bad:</StatisticsListLabel>
-          <StatisticsListValue>{bad}</StatisticsListValue>
+          Positive feedback: {positivePercentage}%
         </StatisticsListItem>
       </StatisticsList>
     </Box>
   );
+};
+
+Statistics.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  values: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
+  total: PropTypes.func.isRequired,
+  positivePercentage: PropTypes.func.isRequired,
 };
