@@ -35,7 +35,7 @@ export default function App() {
   };
 
   const countPositivePercentage = () => {
-    return good ? Math.round((good / total) * 100) : 0;
+    return good ? Math.round((good / total()) * 100) : 0;
   };
 
   return (
@@ -43,12 +43,11 @@ export default function App() {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      width="60%"
-      p="ml"
-      m="10px auto"
-      border="1px solid"
-      borderRadius="normal"
-      backgroundColor="secondaryColor"
+      width="100%"
+      height="100vh"
+      p="xl"
+      border="none"
+      backgroundColor="secondBackgroundColor"
     >
       <Section title={'Please leave feedback'}>
         <FeedbackOptions
@@ -57,13 +56,13 @@ export default function App() {
         />
       </Section>
       <Section title={'Statistics'}>
-        {total > 0 ? (
+        {total() > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={total}
-            positivePercentage={countPositivePercentage}
+            total={total()}
+            positivePercentage={countPositivePercentage()}
           />
         ) : (
           <Notification message="There is no feedback" />
