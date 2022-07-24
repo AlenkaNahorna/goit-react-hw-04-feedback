@@ -10,6 +10,8 @@ export default function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const feedBackOptions = [good, neutral, bad];
+
   const handleLeaveFeedback = event => {
     switch (event.target.name) {
       case 'good':
@@ -27,8 +29,6 @@ export default function App() {
     total();
     countPositivePercentage();
   };
-
-  const feedBackOptions = { good, neutral, bad };
 
   const total = () => {
     return good + neutral + bad;
