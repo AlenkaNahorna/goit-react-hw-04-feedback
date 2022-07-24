@@ -10,18 +10,18 @@ export default function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const feedBackOptions = [good, neutral, bad];
+  const options = ['good', 'neutral', 'bad'];
 
   const handleLeaveFeedback = event => {
-    switch (event.target.name) {
+    switch (event.currentTarget.name) {
       case 'good':
-        setGood(prevState => prevState + 1);
+        setGood(good + 1);
         break;
       case 'neutral':
-        setNeutral(prevState => prevState + 1);
+        setNeutral(neutral + 1);
         break;
       case 'bad':
-        setBad(prevState => prevState + 1);
+        setBad(bad + 1);
         break;
       default:
         return;
@@ -52,17 +52,18 @@ export default function App() {
     >
       <Section title={'Please leave feedback'}>
         <FeedbackOptions
-          options={feedBackOptions}
+          options={options}
           onLeaveFeedback={handleLeaveFeedback}
         />
       </Section>
       <Section title={'Statistics'}>
         {total > 0 ? (
           <Statistics
-            options={feedBackOptions}
-            values={handleLeaveFeedback}
-            total={total()}
-            positivePercentage={countPositivePercentage()}
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            positivePercentage={countPositivePercentage}
           />
         ) : (
           <Notification message="There is no feedback" />
